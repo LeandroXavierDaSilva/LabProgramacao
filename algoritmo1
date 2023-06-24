@@ -1,3 +1,11 @@
+/***************************************************
+/∗ Alunos: Leandro Xavier da Silva e Natanael
+/* Matrícula: 20222045050255 e 
+/∗ Avaliação 04: Trabalho Final
+/* 26.06.23 - 2023.1 - Prof. Daniel Ferreira
+/* Compilador : ... ( DevC++ ou gcc ) versão...
+/∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗
+
 #include <stdlib.h> 
  #include <stdio.h> 
  #include <time.h> 
@@ -62,7 +70,7 @@
      } 
   
      // Escrevendo o cabeçalho da sub-imagem PGM 
-     fprintf(arquivo, "P2\n# columns.pgm\n%d %d\n%d\n", subImagem->largura, subImagem->altura, subImagem->valorMax); 
+     fprintf(arquivo, "P2\n# 19b7ae0c1983488b205056be14cb8d3f_ascii.pgm\n%d %d\n%d\n", subImagem->largura, subImagem->altura, subImagem->valorMax); 
   
      // Escrevendo os dados dos pixels da sub-imagem 
      for (int i = 0; i < subImagem->altura; i++) { 
@@ -178,7 +186,7 @@
      srand(time(NULL)); 
   
      // Lendo a imagem PGM 
-     struct ImagemPGM* imagem = lerImagemPGM("columns.pgm"); 
+     struct ImagemPGM* imagem = lerImagemPGM("19b7ae0c1983488b205056be14cb8d3f_ascii.pgm"); 
   
      // Solicitando a quantidade e tamanho das sub-imagens ao usuário 
      int quantidadeSubImagens, larguraSubImagem, alturaSubImagem; 
