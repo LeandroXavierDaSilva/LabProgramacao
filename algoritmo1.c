@@ -9,18 +9,20 @@
 #include <stdlib.h> 
  #include <stdio.h> 
  #include <time.h> 
-  
- struct ImagemPGM { 
+
+ // Essa estrutura contém informações sobre a largura, altura, valor máximo e matriz de pixels da imagem.
+ struct ImagemPGM{ 
      int largura; 
      int altura; 
      int valorMax; 
      unsigned char** pixels; 
  }; 
-  
- struct ImagemPGM* lerImagemPGM(const char* nomeArquivo) { 
+
+// Função responsável por ler uma imagem PGM de um arquivo e retornar uma estrutura ImagemPGM preenchida com os dados da imagem
+ struct ImagemPGM* lerImagemPGM(const char* nomeArquivo){ 
      FILE* arquivo = fopen(nomeArquivo, "r"); 
   
-     if (arquivo == NULL) { 
+     if (arquivo == NULL){ 
          printf("Erro ao abrir o arquivo de imagem.\n"); 
          return NULL; 
      } 
@@ -38,13 +40,13 @@
   
      // Alocando memória para os pixels da imagem 
      imagem->pixels = (unsigned char**)malloc(altura * sizeof(unsigned char*)); 
-     for (int i = 0; i < altura; i++) { 
+     for (int i = 0; i < altura; i++){ 
          imagem->pixels[i] = (unsigned char*)malloc(largura * sizeof(unsigned char)); 
      } 
   
      // Lendo os dados dos pixels da imagem 
-     for (int i = 0; i < altura; i++) { 
-         for (int j = 0; j < largura; j++) { 
+     for (int i = 0; i < altura; i++){ 
+         for (int j = 0; j < largura; j++){ 
              fscanf(arquivo, "%hhu", &imagem->pixels[i][j]); 
          } 
      } 
@@ -52,19 +54,21 @@
      fclose(arquivo); 
      return imagem; 
  } 
-  
- void liberarImagemPGM(struct ImagemPGM* imagem) { 
-     for (int i = 0; i < imagem->altura; i++) { 
+
+// Função responsável por liberar a memória alocada para a estrutura ImagemPGM e seus pixels
+ void liberarImagemPGM(struct ImagemPGM* imagem){ 
+     for (int i = 0; i < imagem->altura; i++){ 
          free(imagem->pixels[i]); 
      } 
      free(imagem->pixels); 
      free(imagem); 
  } 
-  
- void salvarSubImagemPGM(const char* nomeArquivo, struct ImagemPGM* subImagem) { 
+
+// Função responsável por salvar uma sub-imagem em um arquivo no formato PGM
+ void salvarSubImagemPGM(const char* nomeArquivo, struct ImagemPGM* subImagem){ 
      FILE* arquivo = fopen(nomeArquivo, "w"); 
   
-     if (arquivo == NULL) { 
+     if (arquivo == NULL){ 
          printf("Erro ao criar o arquivo de sub-imagem.\n"); 
          return; 
      } 
@@ -73,8 +77,8 @@
      fprintf(arquivo, "P2\n# 19b7ae0c1983488b205056be14cb8d3f_ascii.pgm\n%d %d\n%d\n", subImagem->largura, subImagem->altura, subImagem->valorMax); 
   
      // Escrevendo os dados dos pixels da sub-imagem 
-     for (int i = 0; i < subImagem->altura; i++) { 
-         for (int j = 0; j < subImagem->largura; j++) { 
+     for (int i = 0; i < subImagem->altura; i++){ 
+         for (int j = 0; j < subImagem->largura; j++){ 
              fprintf(arquivo, "%hhu ", subImagem->pixels[i][j]); 
          } 
          fprintf(arquivo, "\n"); 
@@ -82,8 +86,9 @@
   
      fclose(arquivo); 
  } 
-  
- void aplicarFiltroMedia(struct ImagemPGM* imagem) { 
+
+// Função responsável por aplicar um filtro de média 3x3 na imagem fornecida
+ void aplicarFiltroMedia(struct ImagemPGM* imagem){ 
      struct ImagemPGM* copiaImagem = (struct ImagemPGM*)malloc(sizeof(struct ImagemPGM)); 
      copiaImagem->largura = imagem->largura; 
      copiaImagem->altura = imagem->altura; 
@@ -91,9 +96,9 @@
      copiaImagem->pixels = (unsigned char**)malloc(imagem->altura * sizeof(unsigned char*)); 
   
      // Copiar a imagem original para a cópia 
-     for (int i = 0; i < imagem->altura; i++) { 
+     for (int i = 0; i < imagem->altura; i++){ 
          copiaImagem->pixels[i] = (unsigned char*)malloc(imagem->largura * sizeof(unsigned char)); 
-         for (int j = 0; j < imagem->largura; j++) { 
+         for (int j = 0; j < imagem->largura; j++){ 
              copiaImagem->pixels[i][j] = imagem->pixels[i][j]; 
          } 
      } 
@@ -118,29 +123,30 @@
      } 
   
      // Tratamento de bordas com zero 
-     for (int i = 0; i < imagem->altura; i++) { 
+     for (int i = 0; i < imagem->altura; i++){ 
          imagem->pixels[i][0] = 0;  // Bordas esquerda 
          imagem->pixels[i][imagem->largura - 1] = 0;  // Bordas direita 
      } 
-     for (int j = 0; j < imagem->largura; j++) { 
+     for (int j = 0; j < imagem->largura; j++){ 
          imagem->pixels[0][j] = 0;  // Bordas superior 
          imagem->pixels[imagem->altura - 1][j] = 0;  // Bordas inferior 
      } 
   
      // Liberar a memória alocada para a cópia da imagem 
-     for (int i = 0; i < copiaImagem->altura; i++) { 
+     for (int i = 0; i < copiaImagem->altura; i++){ 
          free(copiaImagem->pixels[i]); 
      } 
      free(copiaImagem->pixels); 
      free(copiaImagem); 
  } 
   
-  
- void selecionarSubImagensAleatorias(struct ImagemPGM* imagem, int numSubImagens, int larguraSubImagem, int alturaSubImagem) { 
+ // Função responsável por gerar e salvar sub-imagens aleatórias da imagem fornecida,
+ // com base no número de sub-imagens desejado, largura e altura especificadas. 
+ void selecionarSubImagensAleatorias(struct ImagemPGM* imagem, int numSubImagens, int larguraSubImagem, int alturaSubImagem){ 
      int limiteHorizontal = imagem->largura - larguraSubImagem; 
      int limiteVertical = imagem->altura - alturaSubImagem; 
   
-     for (int i = 0; i < numSubImagens; i++) { 
+     for (int i = 0; i < numSubImagens; i++){ 
          // Gerando coordenadas aleatórias para a sub-imagem 
          int posX = rand() % limiteHorizontal; 
          int posY = rand() % limiteVertical; 
@@ -153,13 +159,13 @@
   
          // Alocando memória para os pixels da sub-imagem 
          subImagem->pixels = (unsigned char**)malloc(alturaSubImagem * sizeof(unsigned char*)); 
-         for (int j = 0; j < alturaSubImagem; j++) { 
+         for (int j = 0; j < alturaSubImagem; j++){ 
              subImagem->pixels[j] = (unsigned char*)malloc(larguraSubImagem * sizeof(unsigned char)); 
          } 
   
          // Copiando os pixels da sub-imagem da imagem original 
-         for (int y = 0; y < alturaSubImagem; y++) { 
-             for (int x = 0; x < larguraSubImagem; x++) { 
+         for (int y = 0; y < alturaSubImagem; y++){ 
+             for (int x = 0; x < larguraSubImagem; x++){ 
                  subImagem->pixels[y][x] = imagem->pixels[posY + y][posX + x]; 
              } 
          } 
@@ -173,7 +179,7 @@
          salvarSubImagemPGM(nomeArquivo, subImagem); 
   
          // Liberando a memória alocada para a sub-imagem 
-         for (int j = 0; j < alturaSubImagem; j++) { 
+         for (int j = 0; j < alturaSubImagem; j++){ 
              free(subImagem->pixels[j]); 
          } 
          free(subImagem->pixels); 
@@ -181,8 +187,8 @@
      } 
  } 
   
- int main() { 
-     // Definindo a semente aleatória com base no horário atual 
+ int main(){ 
+     // Definindo a semente aleatória com base no horário atual
      srand(time(NULL)); 
   
      // Lendo a imagem PGM 
