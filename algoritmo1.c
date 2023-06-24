@@ -1,6 +1,6 @@
 /***************************************************
-/∗ Alunos: Leandro Xavier da Silva e Natanael
-/* Matrícula: 20222045050255 e 
+/∗ Alunos: Leandro Xavier da Silva e Natanael Nogueira Fernandes
+/* Matrícula: 20222045050255 e 20222045050379
 /∗ Avaliação 04: Trabalho Final
 /* 26.06.23 - 2023.1 - Prof. Daniel Ferreira
 /* Compilador : ... ( DevC++ ou gcc ) versão...
