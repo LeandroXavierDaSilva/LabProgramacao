@@ -18,6 +18,7 @@ typedef struct{
     int *pixels;
 } ImagemPGM;
 
+// Função para carregar uma imagem PGM a partir de um arquivo
 int carregarImagemPGM(const char *nomeArquivo, ImagemPGM *imagem){
     FILE *arquivo;
     char linha[100];
@@ -71,6 +72,7 @@ int carregarImagemPGM(const char *nomeArquivo, ImagemPGM *imagem){
     return 1;
 }
 
+// Função para liberar a memória alocada para uma imagem
 void liberarImagemPGM(ImagemPGM *imagem){
     if (imagem->pixels != NULL){
         free(imagem->pixels);
@@ -78,6 +80,7 @@ void liberarImagemPGM(ImagemPGM *imagem){
     }
 }
 
+// Função para calcular o erro médio quadrático entre duas imagens
 double calcularErroMedioQuadratico(const ImagemPGM *imagem1, const ImagemPGM *imagem2, int x, int y){
     double erro = 0.0;
     int i, j;
@@ -95,6 +98,7 @@ double calcularErroMedioQuadratico(const ImagemPGM *imagem1, const ImagemPGM *im
     return erro;
 }
 
+// Função para buscar sub-imagens em uma imagem original
 void buscarSubImagens(const char *diretorio, const ImagemPGM *imagemOriginal, int numSubImagens){
     char nomeArquivo[100];
     int i, j, x, y;
