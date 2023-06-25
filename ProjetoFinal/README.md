@@ -5,11 +5,11 @@
   
  Neste trabalho, nós implementamos em Linguagem C dois algoritmos para resolver o problema a seguir. 
   
- - ## algoritmo 1: 
+ - ## Algoritmo 1: 
   
    O algoritmo lê uma imagem PGM, gera sub-imagens aleatórias com base nos parâmetros especificados, aplica um filtro de média a essas sub-imagens e as salva em arquivos separados. 
   
- - ## algoritmo 2: 
+ - ## Algoritmo 2: 
   
    O algoritmo implementa um sistema de busca de sub-imagens em uma imagem original utilizando o cálculo do erro médio quadrático como critério de similaridade, assim salvando as condenadas de cada sub-imagem. 
   
