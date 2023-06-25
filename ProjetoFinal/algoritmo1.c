@@ -7,8 +7,8 @@
 /***************************************************/
 
 #include <stdlib.h> 
- #include <stdio.h> 
- #include <time.h> 
+#include <stdio.h> 
+#include <time.h> 
 
  // Essa estrutura contém informações sobre a largura, altura, valor máximo e matriz de pixels da imagem.
  struct ImagemPGM{ 
